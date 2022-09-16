@@ -13,8 +13,8 @@ function operatorPressed(e) {
 	if(e.target.id === 'equals') {
 		num2 = numberDisplay.textContent;
 		numberDisplay.textContent = '';
-		console.log(typeof(operator));
-		solution = operate(+num2, operator, +num1);
+		// console.log(typeof(operator));
+		solution = operate(+num2, window[operator], +num1);
 		alert(solution);
 		
 	} else {
