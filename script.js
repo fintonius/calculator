@@ -14,14 +14,16 @@ function operatorPressed(e) {
 		num2 = numberDisplay.textContent;
 		numberDisplay.textContent = '';
 		// console.log(typeof(operator));
-		solution = operate(+num2, window[operator], +num1);
+		//calls function & converts strings to integers and string to ...
+		solution = operate(+num1, window[operator], +num2);
 		alert(solution);
 		
 	} else {
 		operator = e.target.id;
 		num1 = numberDisplay.textContent;
 		numberDisplay.textContent = '';
-		console.log(operator, num1)};
+		// console.log(operator, num1)
+	};
 }
 
 for (let opBtn of operatorButtons) {
@@ -45,7 +47,7 @@ function divide(a, b) {
 };
 
 function operate(num1, operator, num2) {
-	console.log(num1, operator, num2)
+	// console.log(num1, operator, num2)
 	let answer = '';
 	switch(operator) {
 		case add:
@@ -65,3 +67,25 @@ function operate(num1, operator, num2) {
 	}
 	return answer;
 }
+
+
+function getKeyCode(event) {
+let keycode = event.which;
+document.getElementById('keycode').textContent = keycode;
+}
+
+//adding keyboard function to it:
+window.addEventListener('keydown', function(e) {
+	console.log(e.key);
+});
+//NEED TO MATCH KEYCODE TO DATA-KEY??? No: //.which and .keyCode have both been deprecated. 
+//Use .key now, which returns a string //that matches the key pressed. 
+//Pressing the 'a' key returns 'a', 'B' returns 'B', '1' returns '1', etc. 
+//It means there's no need to find a keycode anymore as the .key value
+//is literally the same as the key being pressed/listened for!
+//Does this mean I can just listen for the textContent of the key pressed? I think
+//I'm getting confused here...
+
+//if e !== data-key return
+//else input.textContent = e.textContent
+//???
