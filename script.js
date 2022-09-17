@@ -13,10 +13,9 @@ function operatorPressed(e) {
 	if(e.target.id === 'equals') {
 		num2 = numberDisplay.textContent;
 		numberDisplay.textContent = '';
-		// console.log(typeof(operator));
 		//calls function & converts strings to integers and string to ...
 		solution = operate(+num1, window[operator], +num2);
-		alert(solution);
+		numberDisplay.textContent = solution;
 		
 	} else {
 		operator = e.target.id;
@@ -68,9 +67,12 @@ function operate(num1, operator, num2) {
 	return answer;
 }
 
-//adding keyboard function to it:
+//adding keyboard function to it. Using Wes Bos' DrumKit tut for this!:
 window.addEventListener('keydown', function(e) {
-	console.log(e.key);
+	const numPress = document.querySelector(`button[class~='num-button'][data-key='${e.key}']`);
+	const operatorPress = document.querySelector(`button[class~='operator-button'][data-key='${e.key}']`);
+	if(!numPress) return; 
+	numberDisplay.textContent += numPress.textContent;
 });
 //NEED TO MATCH KEYCODE TO DATA-KEY??? No: //.which and .keyCode have both been deprecated. 
 //Use .key now, which returns a string //that matches the key pressed. 
