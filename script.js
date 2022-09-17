@@ -68,12 +68,6 @@ function operate(num1, operator, num2) {
 	return answer;
 }
 
-
-function getKeyCode(event) {
-let keycode = event.which;
-document.getElementById('keycode').textContent = keycode;
-}
-
 //adding keyboard function to it:
 window.addEventListener('keydown', function(e) {
 	console.log(e.key);
