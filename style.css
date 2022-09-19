@@ -16,16 +16,20 @@ body {
 }
 
 #calculator {
+	padding: 7px;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
-	width: 30%;
-	border: solid red 1px;
+	min-width: 200px;
+	min-height: 250px;
+	border: solid darkorange 2px;
 }
 
 .number-display {
 	display: flex;
 	justify-content: flex-end;
+	justify-self: flex-start;
+	flex: 1;
 	font-family: 'Orbitron', sans-serif;
 	font-size: small;
 	padding-right: 2px;
@@ -34,27 +38,38 @@ body {
 	margin-bottom: 2px;
 	margin-top: 1px;
 }
-
-#num-btns {
+#buttons {
 	display: flex;
+	flex: 5;	
+}
+
+#num-btns {	
+	display: flex;
+	flex:2;
 	flex-flow: column wrap;
-	margin-top: 2px;
-	}
+	margin: 2px;
+}
 
 .button {
-	margin-bottom: 2px;
+	font-family: 'Orbitron', sans-serif;
+	background-color:azure ;
+	border: 1px solid darkslategray;
+	border-radius: 5px;
+	margin: 1px;
+	margin-top: 2px;
+	flex:1;
 }
 
 .num-button {	
-	width: 10px;
-	height: 20px;
+	display: flex;
 }
-
+.row {
+	display: flex;
+	flex: 1;
+}
 #operator-btns {
 	display: flex;
 	flex-direction: column;
-	margin-left: 2px;
-	margin-top: 2px;
 }
 
 #key-code {
