@@ -17,34 +17,43 @@ numButtons.forEach(num => {
 
 const operatorButtons = document.querySelectorAll('.operator-button');
 
-//so, the problem is using the same function on a click and a keydown event doesn't
-//seem to work as they require different ways to check the relevant id: either with
-//'e.id' or 'e.target.id' and each doesn't work on the other. Find a way to combine the 
-//two or a single chaeck type that will look for both?
 function operatorPressed(e) {
-	console.log(e.id);
-	if(e.id == 'equals') {
-		num2 = numberDisplay.textContent;
-		numberDisplay.textContent = '';
-		//calls function & converts strings to integers and string to ...
-		solution = operate(+num1, window[operator], +num2);
-		numberDisplay.textContent = solution;
-		equals = 'pressed';
-		
+	//checks if it was click or keydown event which called function
+		if (e.which) {
+			if(e.target.id == 'equals') {
+				num2 = numberDisplay.textContent;
+				numberDisplay.textContent = '';
+				//calls function & converts strings to integers and string to ...
+				solution = operate(+num1, window[operator], +num2);
+				numberDisplay.textContent = solution;
+				equals = 'pressed';
+				
+			} else {
+				operator = e.target.id;
+				num1 = numberDisplay.textContent;
+				numberDisplay.textContent = '';
+			};
 	} else {
-		operator = e.id;
-		num1 = numberDisplay.textContent;
-		numberDisplay.textContent = '';
-		// console.log(operator, num1)
+		if(e.id == 'equals') {
+			num2 = numberDisplay.textContent;
+			numberDisplay.textContent = '';
+			solution = operate(+num1, window[operator], +num2);
+			numberDisplay.textContent = solution;
+			equals = 'pressed';
+			
+		} else {
+			operator = e.id;
+			num1 = numberDisplay.textContent;
+			numberDisplay.textContent = '';
+		};
 	};
-}
+};
 
 for (let opBtn of operatorButtons) {
 	opBtn.addEventListener('click', operatorPressed);
 }
 //adding keyboard function to it. Using Wes Bos' DrumKit tut for this!:
 window.addEventListener('keydown', function(e) {
-	// console.log(e.key);
 	const numPress = document.querySelector(`button[class~='num-button'][data-key='${e.key}']`);
 	const operatorPress = document.querySelector(`button[class~='operator-button'][data-key='${e.key}']`);
 	
@@ -53,21 +62,8 @@ window.addEventListener('keydown', function(e) {
 	} else if(operatorPress) {
 		operatorPressed(operatorPress);
 	} else {return;
-	}
+	};
 });
-
-//use the keycode rather than text or symbols for the operators
-//NEED TO MATCH KEYCODE TO DATA-KEY??? No: .which and .keyCode have both been deprecated. 
-//Use .key now, which returns a string that matches the key pressed. 
-//Pressing the 'a' key returns 'a', 'B' returns 'B', '1' returns '1', etc. 
-//It means there's no need to find a keycode anymore as the .key value
-//is literally the same as the key being pressed/listened for!
-//Does this mean I can just listen for the textContent of the key pressed? I think
-//I'm getting confused here...
-
-//if e !== data-key return
-//else input.textContent = e.textContent
-//???
 
 //need to reset display to no content after answer calculated before next 
 //calculation entered.
