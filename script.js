@@ -1,14 +1,14 @@
 let numberDisplay = document.getElementById('number-display');
 numberDisplay.textContent = '';
-let equals = '';
+let equals = false;
 
 const numButtons = document.querySelectorAll('.num-button');
 numButtons.forEach(num => {
 	num.addEventListener('click', () => {
-		if (equals == 'pressed') {
+		if (equals) {
 			numberDisplay.textContent = '';
 			numberDisplay.textContent += num.textContent;
-			equals = '';
+			equals = false;
 		} else {
 			numberDisplay.textContent += num.textContent
 		}
@@ -26,7 +26,7 @@ function operatorPressed(e) {
 				//calls function & converts strings to integers and string to ...
 				solution = operate(+num1, window[operator], +num2);
 				numberDisplay.textContent = solution;
-				equals = 'pressed';
+				equals = true;
 				
 			} else {
 				operator = e.target.id;
@@ -39,7 +39,7 @@ function operatorPressed(e) {
 			numberDisplay.textContent = '';
 			solution = operate(+num1, window[operator], +num2);
 			numberDisplay.textContent = solution;
-			equals = 'pressed';
+			equals = true;
 			
 		} else {
 			operator = e.id;
@@ -47,6 +47,7 @@ function operatorPressed(e) {
 			numberDisplay.textContent = '';
 		};
 	};
+	// console.log(equals);
 };
 
 for (let opBtn of operatorButtons) {
@@ -54,11 +55,19 @@ for (let opBtn of operatorButtons) {
 }
 //adding keyboard function to it. Using Wes Bos' DrumKit tut for this!:
 window.addEventListener('keydown', function(e) {
-	const numPress = document.querySelector(`button[class~='num-button'][data-key='${e.key}']`);
-	const operatorPress = document.querySelector(`button[class~='operator-button'][data-key='${e.key}']`);
 	
+	const numPress = document.querySelector(`button[class~='num-button'][data-key='${e.key}']`);
+	const operatorPress = document.querySelector(`button[class~='operator-button'][data-key='${e.key}']`);	
 	if(numPress) {
-		numberDisplay.textContent += numPress.textContent;
+		if (equals) {
+			equals = false;
+			numberDisplay.textContent = '';
+			numberDisplay.textContent += numPress.textContent;
+			
+		} else {
+			numberDisplay.textContent += numPress.textContent
+		};
+		
 	} else if(operatorPress) {
 		operatorPressed(operatorPress);
 	} else {return;
